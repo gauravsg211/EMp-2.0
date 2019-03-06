@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+    <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+              <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+                <link rel="stylesheet" href="../css/bootstrap.css">
+                
+                <script src="../js/index.js"></script>
+              <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+            </head>
+          <body>
+              <div class="header">
+                   <div class="row">
+                       <div class="col-md-10">
+                          <img src="logo.png" alt="logo" />
+                       </div>
+                       <div class = "col-md-2 ">
+                           <span>
+                               <img src = "logo.png" alt = "img" class="rounded-circle" width="50" height="50">
+                           </span> 
+                           <button type="button" class="btn btn-link">User Name</button>
+                       </div>
+                    </div>
+              </div>
+              <div id = "accordion"> 
+                   <nav class = "navbar navbar-expand-sm bg-dark navbar-dark">
+                      <div class = "container-fluid">
+                          <button class="navbar-toggler" 
+                                  type="button" 
+                                  data-toggle="collapse" 
+                                  data-target="#navBarMenu" 
+                                  aria-controls="navBarMenu" 
+                                  aria-expanded="false" 
+                                  aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                           </button>
+                           <div class="collapse navbar-collapse" id = "navBarMenu">
+                               <ul class="nav">
+                                   <li class = "nav-item">
+                                       <a href="#" class="nav-link" data-toggle="collapse" data-target="#details">Details </a>
+                                    </li>
+                                   <li class = "nav-item">
+                                       <a href = "#" class="nav-link" data-toggle="collapse" data-target="#skilltable">Skills </a>
+                                   </li>
+                                   <li class = "nav-item">
+                                       <a href = "#" class="nav-link" data-toggle="collapse" data-target="#leavedetail">Leaves </a>
+                                   </li>
+                                   <li class = "nav-item">
+                                       <a href = "#" class="nav-link" data-toggle="collapse" data-target="#projects">Project(s) </a>
+                                   </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul class = "nav navbar-right">
+                                    <li class = "nav-item">
+                                        <a href = "#" class="nav-link">Log-out </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                       </div>
+                    </nav>
+                    <div class="container collapse show" id = "details" data-parent="#accordion" onload="getEmployeeDetail();">
+                         <div>
+                              <h2>Hello, User!</h2>
+                                  <div class="cgi">(CGI-027)</div>
+                          </div>
+                          <div class= "row">
+                                 <div class = "col-md-2">First Name:</div> 
+                                 <div class = "col-md-4">
+                                     <input type="text" class="form-control" id="fname" value="Srishty" name="fname" disabled>
+                                 </div>
+                                 <div class = "col-md-2">Last Name:</div> 
+                                 <div class = "col-md-4">
+                                     <input type="text" class="form-control" id="lname" value="Rawat" name="lname" disabled>
+                                 </div>
+             
+                         </div><br>
+                         <div class= "row">
+                                 <div class = "col-md-2">Nick Name:</div> 
+                                 <div class = "col-md-4">
+                                     <input type="text" class="form-control" id="nname" value="Srishty" name="nname">
+                                 </div>
+                                 <div class = "col-md-2">Location:</div> 
+                                 <div class = "col-md-4">
+                                     <input type="text" class="form-control" id="location" value="Noida" name="location" disabled>
+                                 </div>
+                         </div><br>
+                         <div class= "row">
+                                 <div class = "col-md-2">Email:</div> 
+                                 <div class = "col-md-4">
+                                     <input type="email" class="form-control" id="email" value="abc@cygrp.com" name="email" disabled>
+                                 </div>
+                                 <div class = "col-md-2">Designation:</div> 
+                                 <div class = "col-md-4">
+                                     <input type="text" class="form-control" id="designation" value="Intern" name="designation" disabled>
+                                 </div>
+                         </div><br>
+                         <div class= "row">
+                                 <div class = "col-md-2">Experience:</div> 
+                                 <div class = "col-md-4">
+                                     <input type="number" class="form-control" id="exp" value="0" name="exp">
+                                 </div>
+                                 <div class = "col-md-2">Department:</div> 
+                                 <div class = "col-md-4">
+                                     <input type="text" class="form-control" id="division" placeholder="Division" name="department">
+                                 </div>
+                        </div><br>
+                        <div class= "row">
+                                 <div class = "col-md-2">Date-of-birth:</div> 
+                                 <div class = "col-md-4">
+                                     <input type="text" class="form-control" id="DOB" value="12-01-1998" name="DOB">
+                                 </div>
+                                 <div class = "col-md-2">Date-of-joining:</div> 
+                                 <div class = "col-md-4">
+                                     <input type="text" class="form-control" id="DOJ" value="14-01-2019" name="DOJ" disabled>
+                                 </div>
+             
+                         </div>
+                         <div class="row justify-content-center">
+                                  <button type="submit" class="btn btn-primary" onclick="updatedetails();">Submit</button>
+                         </div>
+                </div>                
+                <div class = "container collapse" id = "skilltable" data-parent="#accordion">
+                     <button type="submit" class="btn btn-primary" id="skillbtn" data-toggle = "collapse" data-target = "#skillform">
+                         Add SKill
+                     </button>
+                      <table class="table table-striped " id = "skills">
+                            <thead>
+                                  <tr>
+                                        <th>Skill</th>
+                                        <th>Implementation</th>
+                                  </tr>
+                            </thead>
+                            <tbody>
+                                 
+                            </tbody>
+                        </table><br>
+                        <div class= "row collapse" id ="skillform">
+                             <div class = "col-md-2">Skill:</div> 
+                             <div class = "col-md-3" >
+                                    <select id="skilldrop" multiple="true" class="js-example-basic-multiple" style="width: 100%;height: 30px;">
+                                </select>
+                             </div>
+                             <button type="submit" class="btn btn-primary " onclick="skillupdate();">Submit</button>            
+                        </div>
+              </div>
+<!--
+              <div class = "container collapse" id = "leavedetail" data-parent="#accordion">
+                      <table class="table table-striped " id = "leave">
+                            <thead>
+                                  <tr>
+                                        <th>Type</th>
+                                        <th>Total</th>
+                                        <th>Balance</th>
+                                        <th>Pending</th>
+                                        <th>Approved</th>
+                                  </tr>
+                            </thead>
+                            <tbody>
+                                  
+                            </tbody>
+                        </table><br>
+                </div>
+-->
+                <div class = "container collapse" id = "projects" data-parent="#accordion">
+                      <table class="table table-striped " id = "project">
+                            <thead>
+                                  <tr>
+                                        <th>Name</th>
+                                        <th>Start Date</th>
+                                        <th>Tenure</th>
+                                        <th>Status</th>
+                                  </tr>
+                                  
+                            </thead>
+                            <tbody>
+                                  
+                            </tbody>
+                        </table><br>
+                </div>
+            </div>      
+        </body>
+        <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+            $("js-example-basic-multiple").select2({
+                width: 'resolve' });
+        }); 
+   
+    </script>
+    </html>

@@ -1,0 +1,50 @@
+.row{
+    background-color: white;
+}
+a{
+    color: white;
+}
+.col-md-1{
+     border: 2px solid black;
+}
+.col-md-2{
+    text-align: right;
+    font-weight: bold;
+}
+h2{
+    text-align: center;
+}
+.cgi{
+    
+    text-align: right;
+}
+a:hover{
+    font-weight: bolder;
+    color: white;
+    
+}
+button{
+    align-content: center;
+    align-items: center;
+}
+.justify-content-center{
+    top: 20px;
+    position: relative;
+}
+.bold{
+    font-weight: bolder;
+    text-align: center;
+}
+td, th{
+    text-align: center;
+}
+#skills{
+    margin-top: 70px;
+}
+#skillbtn{
+    margin-top: 10px;
+    float: right;
+    margin-bottom: 10px;
+}
+
+
