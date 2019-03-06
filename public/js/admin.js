@@ -1,4 +1,11 @@
 var updateId="";
+function validateEmail(emailField){
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if (reg.test(emailField.value) == false) {
+        return false;
+    }
+    return true;
+}
 $(document).ready(function(){ 
 
     function escapeHtml(text) {
@@ -9,7 +16,6 @@ $(document).ready(function(){
             '"': '&quot;',
             "'": '&#039;'
         };
-
         return text.replace(/[&<>"']/g, function(m) { return map[m]; });
     }
 
@@ -25,9 +31,6 @@ $(document).ready(function(){
         return data;
     }
 
-
-
-
     $("#bt1").click(submission);
 
     function submission(){
@@ -40,32 +43,47 @@ $(document).ready(function(){
         var department = document.getElementById("department").value;
         var doj = document.getElementById("DOJ").value;
         var password = document.getElementById("password").value;
-        var dataToSend={
-            "FirstName": first_name,
-            "LastName": last_name,
-            "NickName":nick_name,
-            "Location": location,
-            "Email": email,
-            "Role": designation,                
-            "Department" :department,
-            "DateOfJoining":doj,
-            "Password":password,
-            "Status":"Active"
-        };
-
-        $.ajax({
-            url: 'http://localhost:5000/employee',
-            data: dataToSend,
-            type:'POST',
-            dataType:'json',
-            success:function(res){
-                console.log(res);
-
-
+        if(first_name=='' || last_name=='' || nick_name==''||location==''||email==''||designation==''||department==''||doj==''||password==''){
+            alert('Fill all records!!!');
+        }
+        else{ 
+            if(validateEmail(document.getElementById("email").value)){
+                alert("Not a valid email");
             }
-        });
-    }
+            else{
+                if ((password.length < 4) || (password.length > 8))
+                {
+                    alert("Your Password must be 4 to 8 Character");
+                }
+                else{
+                    var dataToSend={
+                        "FirstName": first_name,
+                        "LastName": last_name,
+                        "NickName":nick_name,
+                        "Location": location,
+                        "Email": email,
+                        "Role": designation,                
+                        "Department" :department,
+                        "DateOfJoining":doj,
+                        "Password":password,
+                        "Status":"Active"
+                    };
 
+                    $.ajax({
+                        url: 'http://localhost:5000/employee',
+                        data: dataToSend,
+                        type:'POST',
+                        dataType:'json',
+                        success:function(res){
+                            console.log(res);
+
+
+                        }
+                    });
+                }
+            }
+        }
+    }
 
     $("#userTable1").click(getemployee);
 
@@ -198,40 +216,41 @@ $(document).ready(function(){
     }
 
 
-    $("#bt2").click(addskills);
+});
 
-    function addskills(){
+function addskills(){
 
 
-        var name= document.getElementById("skillname").value;
-        var category= document.getElementById("implementation").value;
+    var name= document.getElementById("skillname").value;
+    var category= document.getElementById("implementation").value;
+    if(name==''||category==''){
+        alert("Fill all records!!!");
+    }
+    else{
         var dataToSend={
-            "Name":name,
+            "SkillName":name,
             "Category":category,
 
         };
-
         $.ajax({
             url: 'http://localhost:5000/skill',
             data: dataToSend,
             type:'POST',
             dataType:'json',
             success:function(res){
-                console.log(res);
-
+                alert("New Skill Added!!!");
             }
         });
     }
-});
+}
 
 function changeStatus(userId){
     $.ajax({
-        type:'PUT',
+        type:'PATCH',
         url:'http://localhost:5000/delete/'+userId,
         success:function(data){
-
             document.getElementById(userId).disabled=true;
-            alert("employee removed");
+            alert("employee removed!!!");
 
         },
         error:function(err){
@@ -267,9 +286,7 @@ function loadPageData2(page){
             }  
         }  
     });
-
 }
-
 
 function loadPageData(page){
     var pageNumber = page;
@@ -343,23 +360,41 @@ function loadDataForUpdate(user){
 }
 
 function updateEmployee(){
-    var dataToSend={
-        "FirstName":document.getElementById('fname_update').value,
-        "LastName":document.getElementById('lname_update').value,
-        "NickName":document.getElementById('nname_update').value,
-        "Location":document.getElementById('location_update').value,
-        "Email":document.getElementById('email_update').value,
-        "Designation":document.getElementById('designation_update').value,
-        "Department":document.getElementById('department_update').value,
-        "DateOfJoining":document.getElementById('DOJ_update').value
+    var fname=document.getElementById('fname_update').value;
+    var lname=document.getElementById('lname_update').value;
+    var nname=document.getElementById('nname_update').value;
+    var location = document.getElementById('location_update').value;
+    var email = document.getElementById('email_update').value;
+    var designation = document.getElementById('designation_update').value;
+    var department = document.getElementById('department_update').value;
+    var doj = document.getElementById('DOJ_update').value;
+    if(fname==''||lname==''||nname==''||location==''||email==''||designation==''||department==''||doj==''){
+        alert("Please fill all records!!!");
     }
-    console.log(dataToSend);
-    $.ajax({
-        type:'PATCH',
-        url:'http://localhost:5000/employee/'+updateId,
-        data:dataToSend,
-        success:function(data){
-            alert(data);
+    else{
+        if(validateEmail(email)){
+            alert("Please fill a valid email!!!");
         }
-    });
+        else{
+            var dataToSend={
+                "FirstName":fname,
+                "LastName":lname,
+                "NickName":nname,
+                "Location":location,
+                "Email":email,
+                "Designation":designation,
+                "Department":department,
+                "DateOfJoining":doj
+            }
+            console.log(dataToSend);
+            $.ajax({
+                type:'PATCH',
+                url:'http://localhost:5000/employee/'+updateId,
+                data:dataToSend,
+                success:function(data){
+                    alert(data);
+                }
+            });
+        }
+    }
 }

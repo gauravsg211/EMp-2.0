@@ -1,12 +1,4 @@
 var array=[];
-function checkForNull(item){
-    if(item.value==""){
-
-    }
-    else{
-
-    }
-}
 var userId="1";
 function formatDate(date){
     var today = new Date(date); 
@@ -95,22 +87,30 @@ function skillupdate(){
 }
 
 function updatedetails(){
-    var dataToSend={
-        "NickName":document.getElementById("nname").value,
-        "DateOfBirth":document.getElementById("DOB").value,
-        "Experience":document.getElementById("experience").value
+    var nname = document.getElementById("nname").value;
+    var dob = document.getElementById("DOB").value;
+    var experience = document.getElementById("experience").value;
+    if(nname==''||dob==''||experience==''){
+        alert('Fill all records!!!');
     }
-    $.ajax({
-        url:'http://localhost:5000/employee/update/'+userId,
-        type: 'PATCH',
-        data:dataToSend,
-        success: function(data){
-            location.reload();
-        },
-        error:function(err){
-            console.log(err);
+    else{
+        var dataToSend={
+            "NickName":nname,
+            "DateOfBirth":dob,
+            "Experience":experience
         }
-    });
+        $.ajax({
+            url:'http://localhost:5000/employee/update/'+userId,
+            type: 'PATCH',
+            data:dataToSend,
+            success: function(data){
+                location.reload();
+            },
+            error:function(err){
+                console.log(err);
+            }
+        });
+    }
 }
 
 function deleteSkills(skillId){
