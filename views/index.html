@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="../css/bootstrap.css">
         <link rel="stylesheet" href="css/pagination.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <script src="../js/admin.js"></script>
     </head>
     <body>
@@ -19,9 +21,7 @@
                     <img src="../logo.png" alt="logo" />
                 </div>
                 <div class = "col-md-2 ">
-                    <span>
-                        <img src = "../logo.png" alt = "img" class="rounded-circle" width="50" height="50">
-                    </span> 
+
                     <button type="button" class="btn btn-link">User Name</button>
                 </div>
             </div>
@@ -64,63 +64,61 @@
 
                 </div>
 
-                <form>
-                    <div class="container">
-                        <div class= "row">
-                            <div class = "col-md-2">First Name:</div> 
-                            <div class = "col-md-4">
-                                <input type="text" class="form-control" id="fname" placeholder="First Name" name="fname" required>
-                            </div>
-                            <div class = "col-md-2">Last Name:</div> 
-                            <div class = "col-md-4">
-                                <input type="text" class="form-control" id="lname" placeholder="Last Name" name="lname" required>
-                            </div>
+                <div class="container">
+                    <div class= "row">
+                        <div class = "col-md-2 text">First Name:</div> 
+                        <div class = "col-md-4">
+                            <input type="text" class="form-control" id="fname" placeholder="First Name" name="fname" required>
+                        </div>
+                        <div class = "col-md-2 text">Last Name:</div> 
+                        <div class = "col-md-4">
+                            <input type="text" class="form-control" id="lname" placeholder="Last Name" name="lname" required>
+                        </div>
 
-                        </div><br>
-                        <div class= "row">
-                            <div class = "col-md-2">Nick Name:</div> 
-                            <div class = "col-md-4">
-                                <input type="text" class="form-control" id="nname" placeholder="Nick Name" name="nname" disabled required>
-                            </div>
-                            <div class = "col-md-2">Location:</div> 
-                            <div class = "col-md-4">
-                                <input type="text" class="form-control" id="location"  name="location" required>
-                            </div>
-                        </div><br>
-                        <div class= "row">
-                            <div class = "col-md-2">Email:</div> 
-                            <div class = "col-md-4">
-                                <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
-                            </div>
-                            <div class = "col-md-2">Designation:</div> 
-                            <div class = "col-md-4">
-                                <input type="text" class="form-control" id="designation" placeholder="Intern" name="designation" required>
-                            </div>
-                        </div><br>
-                        <div class= "row">
-                            <div class = "col-md-2">Password:</div> 
-                            <div class = "col-md-4">
-                                <input type="password" class="form-control" id="password" placeholder="password" name="password" required>
-                            </div>
-                            <div class = "col-md-2">Department:</div> 
-                            <div class = "col-md-4">
-                                <input type="text" class="form-control" id="department" placeholder="department" name="departemnt" required>
-                            </div>
-                        </div><br>
-                        <div class= "row">
-                            <div class = "col-md-2">Date-of-joining:</div> 
-                            <div class = "col-md-4">
-                                <input type="date" class="form-control" id="DOJ" placeholder="DOJ" name="DOJ" required>
-                            </div>
+                    </div><br>
+                    <div class= "row">
+                        <div class = "col-md-2 text">Nick Name:</div> 
+                        <div class = "col-md-4">
+                            <input type="text" class="form-control" id="nname" placeholder="Nick Name" name="nname" disabled required>
+                        </div>
+                        <div class = "col-md-2 text">Location:</div> 
+                        <div class = "col-md-4">
+                            <input type="text" class="form-control" id="location"  name="location" required>
+                        </div>
+                    </div><br>
+                    <div class= "row">
+                        <div class = "col-md-2 text">Email:</div> 
+                        <div class = "col-md-4">
+                            <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+                        </div>
+                        <div class = "col-md-2 text">Designation:</div> 
+                        <div class = "col-md-4">
+                            <input type="text" class="form-control" id="designation" placeholder="Intern" name="designation" required>
+                        </div>
+                    </div><br>
+                    <div class= "row">
+                        <div class = "col-md-2 text">Password:</div> 
+                        <div class = "col-md-4">
+                            <input type="password" class="form-control" id="password" placeholder="password" name="password" required>
+                        </div>
+                        <div class = "col-md-2 text">Department:</div> 
+                        <div class = "col-md-4">
+                            <input type="text" class="form-control" id="department" placeholder="department" name="departemnt" required>
+                        </div>
+                    </div><br>
+                    <div class= "row">
+                        <div class = "col-md-2 text">Date-of-joining:</div> 
+                        <div class = "col-md-4">
+                            <input type="date" class="form-control" id="DOJ" placeholder="DOJ" name="DOJ" required>
+                        </div>
 
 
-                        </div><br>
+                    </div><br>
 
-                    </div>
-                    <div class="row justify-content-center">
-                        <button type="submit" class="btn btn-primary"id="bt1">Create User </button>
-                    </div>
-                </form>
+                </div>
+                <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-primary"id="bt1">Create User </button>
+                </div>
             </div><br>
             <div class = "container collapse" id = "usertable" data-parent="#accordion">
                 <table class="table table-striped " id = "user_table">
@@ -129,7 +127,8 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Status</th>
-                            <th>change status</th>
+                            <th>Update</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>

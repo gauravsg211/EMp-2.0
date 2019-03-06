@@ -77,23 +77,21 @@ router.post('/skill', function (req, res) {
 });
 //to add a skill in tech stack
 
-router.post('/addskillbyid', function (req, res) {
+router.post('/addskillbyid/:id', function (req, res) {
 
 res.header("Access-Control-Allow-Origin","*");
 
     // create Request object
     var request = new sql.Request();
-    request.query("exec addSkillById @SkillId="+req.body.SkillId+",@EmployeeId="+req.body.Employeeid+";", function (err, recordset){
+    request.query("exec addSkillById @SkillId="+req.body.SkillId+",@EmployeeId="+req.params.id+";", function (err, recordset){
 
         if (err){
             console.log(err);}
         else
         {
             res.send("skill added in techstack");
-            console.log(recordset);}
-
-
-
+            console.log(recordset);
+		}
     });
 });
 //to fill details in login table as credentials psased from auth.
@@ -128,6 +126,17 @@ res.header("Access-Control-Allow-Origin","*");
     });
 });*/
 
+router.delete("/techstack/:userId/:skillId", (req, res, next)=>{
+		var request = new sql.Request();
+		request.query("Delete from TechStack where SkillId=" + req.params.skillId + " and Employeeid=" + req.params.userId + ";", function(err, data){
+				if(err){
+					res.status(500).send("Cannot Delete");
+				}
+				else{
+					res.status(201).send("Record Deleted");
+				}
+		});
+});
 
 router.post("/employee", (req, res, next) => {
 	res.header("Access-Control-Allow-Origin","*");
@@ -207,7 +216,9 @@ router.patch('/employee/update/:id', function (req, res) {
 
     var EmployeeId=req.params.id;
     var request = new sql.Request();
-	request.query("exec updateByUser @NickName='"+req.body.NickName+"',@PastExpreience="+req.body.Experience+", @DateOfBirth='"+req.body.DOB+"';", function (err, recordset){
+	
+
+	request.query("exec updateByUser @EmployeeId="+EmployeeId+", @NickName='"+req.body.NickName+"',@PastExpreience="+req.body.Experience+", @DateOfBirth='"+req.body.DateOfBirth+"';", function (err, recordset){
         if (err){
             console.log(err);
 			}
@@ -237,7 +248,7 @@ router.patch('/employee/:id',  (req,res,next)=>{
             console.log(err);}
         else
 
-            res.send("employee details has been added");
+            res.status(201).send("Employee details has been updated!!!");
 
 
 

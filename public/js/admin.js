@@ -31,15 +31,15 @@ $(document).ready(function(){
     $("#bt1").click(submission);
 
     function submission(){
-        var first_name= validateData(document.getElementById("fname").value);
-        var last_name= validateData(document.getElementById("lname").value);
-        var nick_name= validateData(document.getElementById("fname").value);
-        var location= validateData(document.getElementById("location").value);
+        var first_name= document.getElementById("fname").value;
+        var last_name= document.getElementById("lname").value;
+        var nick_name= document.getElementById("fname").value;
+        var location= document.getElementById("location").value;
         var email= document.getElementById("email").value;
-        var designation = validateData(document.getElementById("designation").value);  
-        var department = validateData(document.getElementById("department").value);
-        var doj = validateData(document.getElementById("DOJ").value);
-        var password = validateData(document.getElementById("password").value);
+        var designation = document.getElementById("designation").value;  
+        var department = document.getElementById("department").value;
+        var doj = document.getElementById("DOJ").value;
+        var password = document.getElementById("password").value;
         var dataToSend={
             "FirstName": first_name,
             "LastName": last_name,
@@ -103,7 +103,7 @@ $(document).ready(function(){
                         success: function(data) {
                             $("#user_table").empty();
                             console.log(data);
-                            $("#user_table").append('<tr><th>Name</th><th>Email</th><th>Status</th><th></th><th>change status</th></tr>');
+                            $("#user_table").append('<tr><th>Name</th><th>Email</th><th>Status</th><th>Update</th><th>Delete</th></tr>');
                             for (i = 0; i < data.recordset.length; i++) {
                                 console.log(data.recordset[i].FirstName);
 
@@ -286,7 +286,7 @@ function loadPageData(page){
         success: function(data) {
             $("#user_table").empty();
             console.log(data);
-            $("#user_table").append('<tr><th>Name</th><th>Email</th><th>Status</th><th></th><th>change status</th></tr>');
+            $("#user_table").append('<tr><th>Name</th><th>Email</th><th>Status</th><th>Update</th><th>Delete</th></tr>');
             for (i = 0; i < data.recordset.length; i++) {
                 console.log(data.recordset[i].FirstName);
                 if(data.recordset[i].Status=='Inactive'){
@@ -330,14 +330,14 @@ function loadDataForUpdate(user){
         url:'http://localhost:5000/employee/'+user,
         success:function(data){
             console.log(data);
-            document.getElementById('fname_update').value = data.recordset[0].FirstName;
-            document.getElementById('lname_update').value = data.recordset[0].LastName;
-            document.getElementById('nname_update').value = data.recordset[0].NickName;
-            document.getElementById('location_update').value = data.recordset[0].Location;
-            document.getElementById('email_update').value = data.recordset[0].Email;
-            document.getElementById('designation_update').value = data.recordset[0].Designation;
-            document.getElementById('department_update').value = data.recordset[0].Department;
-            document.getElementById('DOJ_update').value = formatDate(data.recordset[0].DateOfJoining);
+            document.getElementById('fname_update').value = data.FirstName;
+            document.getElementById('lname_update').value = data.LastName;
+            document.getElementById('nname_update').value = data.NickName;
+            document.getElementById('location_update').value = data.Location;
+            document.getElementById('email_update').value = data.Email;
+            document.getElementById('designation_update').value = data.Designation;
+            document.getElementById('department_update').value = data.Department;
+            document.getElementById('DOJ_update').value = formatDate(data.DateOfJoining);
         }
     });
 }

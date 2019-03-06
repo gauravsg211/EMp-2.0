@@ -13,6 +13,10 @@ a{
 }
 h2{
     text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+
 }
 .cgi{
     
@@ -45,6 +49,29 @@ td, th{
     margin-top: 10px;
     float: right;
     margin-bottom: 10px;
+}
+@media screen and (max-width : 768px){
+    .nav{
+        display: block;
+    }  
+li{
+    display: block;
+}
+    .text{
+        text-align: left;
+    }
+    .btn{
+        margin-bottom: 15px;
+    }
+    body{
+        overflow-x: hidden;
+    }
+    .header{
+        margin-left: 5px;
+    }
+}
+.fa, .far{
+    color:black;
 }
 
 

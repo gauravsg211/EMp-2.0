@@ -1,135 +1,92 @@
-var userId="";
+var array=[];
+function checkForNull(item){
+    if(item.value==""){
+
+    }
+    else{
+
+    }
+}
+var userId="1";
+function formatDate(date){
+    var today = new Date(date); 
+    var dd = today.getDate(); 
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear(); 
+    if(dd<10){dd='0'+dd} 
+    if(mm<10){mm='0'+mm}
+    var formattedDate = yyyy+"-"+mm+"-"+dd;
+    return formattedDate;
+}
+
 function getEmployeeDetail(){
     $.ajax({
-        url:'http://localhost:5000/employee'+userId,
+        url:'http://localhost:5000/employee/'+userId,
         type: 'GET',
         dataType: 'json',
         success: function(data){
+            console.log(data);
             document.getElementById("fname").value = data.FirstName;
             document.getElementById("lname").value = data.LastName;
             document.getElementById("nname").value = data.FirstName;
             document.getElementById("email").value = data.Email;
             document.getElementById("location").value = data.Location;
-            document.getElementById("exp").value = data.PastExperience;
+            document.getElementById("experience").value = data.PastExperience;
             document.getElementById("designation").value = data.Designation;
             document.getElementById("division").value = data.Department;
-            document.getElementById("DOB").value = data.DateOfBirth;
-            document.getElementById("DOJ").value = data.DateOfJoining;
-
-
+            document.getElementById("DOB").value = formatDate(data.DateOfBirth);
+            document.getElementById("DOJ").value = formatDate(data.DateOfJoining);
         }
     });
-    $.ajax({
-        url: Url,
-        type: 'GET',
-        dataType: 'json',
-        success: function(data){
-            for(i=0; i<data.length;i++){
-                $('#skills').append(
-                    '<tr><td>' + data[i].Name+
-                    '</td><td>' + data[i].Category 
-                    '</tr>'
-                );
-            }
-        }
-    });
-    $.ajax({
-        url: Url,
-        type: 'GET',
-        dataType: 'json',
-        success: function(data){
-            for(i=0; i<data.length;i++){
-                $('#project').append(
-                    '<tr><td>' + data[i].Name+
-                    '</td><td>' + data[i].start_date+ 
-                    '<td>' + data[i].tenure+
-                    '</td><td>' + data[i].Status
-                    '</tr>'
-                );
-            }
 
-        }
-    });
-}
-function updatedetails(){
-    var first_name= validateData(document.getElementById("fname").value);
-    var last_name= validateData(document.getElementById("lname").value);
-    var nick_name= validateData(document.getElementById("nname").value);
-    var location= validateData(document.getElementById("location").value);
-    var email= document.getElementById("email").value;
-    var designation = validateData(document.getElementById("designation").value);  
-    var experience = validateData(document.getElementById("exp").value);
-    var division = validateData(document.getElementById("division").value);
-    var dob = validateData(document.getElementById("DOB").value);
-    var doj = validateData(document.getElementById("DOJ").value);
-    var password = validateData(document.getElementById("pwd").value);
-    var dataToSend={
-        "FirstName": first_name,
-        "LastName": last_name,
-        "Location": location,
-        "Email": email,
-        "Designation": designation,
-        "PastExperience": experience,
-        "Department" :division,
-        "DateOfBirth":dob,
-        "DateofJoining":doj,
-        "Password":password
-    }
-    $.ajax({
-        url: '',
-        data: dataToSend,
-        type:'PUT',
-        dataType:'json',
-        success:function(res){
-            console.log(res);
-            alert("table updated");
-        }
-    });
-}
-function dropdown(){
-    var node = document.getElementById("skilldrop");
-    for(i=0;i<drop.length;i++){ 
-        var op = new Option();
-        op.value = drop[i].skill;
-        op.text = drop[i].skill;
-        node.options.add(op); 
-    }
-}
-
-
-$(document).ready(function () {
-    var selectedSkills = "";
-    $('.selectbox').select2({
-        placeholder: 'Select a skill'
-    });
     $.ajax({
         type: 'GET',
-        url: '',  
+        url: 'http://localhost:5000/skill/getAll',  
         success: function (data) {
+            console.log(data);
             for (i = 0; i < data.length; i++) {
                 $("#skilldrop").append(
-                    '<option value="' + data[i].name + '">' + data[i].name + '</option>' 
+                    '<option value="' + data[i].Id + '">' + data[i].Name + '</option>' 
                 );
             }       
         }
     });
+
+    $.ajax({
+        url: 'http://localhost:5000/techStack/'+userId,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data){
+            for(i=0; i<data.length;i++){
+                $.ajax({
+                    url: 'http://localhost:5000/skills/'+data[i].SkillId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data){
+                        $('#skills').append(
+                            '<tr><td>' + data[0].Name+
+                            '</td><td>' + data[0].Category+ 
+                            '</td><td><a onclick="deleteSkills(this.id)" href="javascript:void(0)" id="'+data[0].Id+'"><i class="far fa-trash" aria-hidden="true"></i></a>'+
+                            '</td></tr>'
+                        );
+                    }
+                });
+            }
+        }
+    });
 }
 
-                  $("#select2dropdown").on("select2:select select2:unselect", function(e){
-    selectedSkills = $(this).val();
-    console.log(selectedSkills);
-});
 function skillupdate(){
     var newskilldata = {    
-        "skills" : array.concat($("#skilldrop").val()) 
+        "SkillId" : Number(document.getElementById("skilldrop").value)
     };
     console.log(newskilldata);
     $.ajax({
-        type: 'PUT',
-        url: ''+localStorage.getItem("Id"),    
+        type: 'POST',
+        url: 'http://localhost:5000/addskillbyid/' + userId,    
         data: newskilldata,
         success: function (data) {
-            refresh();
+            location.reload();
         },
         error: function(err){
             console.log(err);
@@ -137,22 +94,34 @@ function skillupdate(){
     })
 }
 
-function updateEmployee(){
+function updatedetails(){
+    var dataToSend={
+        "NickName":document.getElementById("nname").value,
+        "DateOfBirth":document.getElementById("DOB").value,
+        "Experience":document.getElementById("experience").value
+    }
     $.ajax({
         url:'http://localhost:5000/employee/update/'+userId,
         type: 'PATCH',
-        dataType: 'json',
+        data:dataToSend,
         success: function(data){
-            document.getElementById("fname").value = data.FirstName;
-            document.getElementById("lname").value = data.LastName;
-            document.getElementById("nname").value = data.FirstName;
-            document.getElementById("email").value = data.Email;
-            document.getElementById("location").value = data.Location;
-            document.getElementById("exp").value = data.PastExperience;
-            document.getElementById("designation").value = data.Designation;
-            document.getElementById("division").value = data.Department;
-            document.getElementById("DOB").value = data.DateOfBirth;
-            document.getElementById("DOJ").value = data.DateOfJoining;
+            location.reload();
+        },
+        error:function(err){
+            console.log(err);
+        }
+    });
+}
+
+function deleteSkills(skillId){
+    $.ajax({
+        url:'http://localhost:5000/techStack/'+userId+"/"+skillId,
+        type: 'DELETE',
+        success: function(data){
+            location.reload();
+        },
+        error:function(err){
+            console.log(err);
         }
     });
 }

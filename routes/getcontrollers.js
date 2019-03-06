@@ -15,7 +15,7 @@ router.get('/Employee/:id', function (req, res) {
 			console.log(err);}
 			else
 			{	
-         res.status(201).json(recordset);
+         res.status(201).json(recordset.recordset[0]);
 			console.log(recordset);}  
 			
 		    
@@ -39,16 +39,16 @@ router.get('/login', function (req, res) {
         
     });
 });
-   router.get('/techStack', function (req, res) {
+   router.get('/techStack/:id', function (req, res) {
 	res.header("Access-Control-Allow-Origin","*");
   
         var request = new sql.Request();
 		
 		
-		request.query("select * from techStack", function (err, recordset){
+		request.query("select * from techStack where Employeeid="+req.params.id+";", function (err, data){
 	 
             if (err) console.log(err)
-          res.status(201).json(recordset);
+          res.status(201).json(data.recordset);
 			 
 		    
         
@@ -127,6 +127,22 @@ router.get('/employee', (req,res,next)=>{
         }
     });
 });
+
+router.get('/skills/:id', (req,res,next)=>{
+	res.header("Access-Control-Allow-Origin","*");
+	 var request = new sql.Request();
+		
+		
+		request.query("select * from skills where Id ="+req.params.id+";",function(err, skills){
+        if(err){
+            res.status(500).send("Error occured");
+        }
+        else{
+            res.status(201).json(skills.recordset);
+        }
+    });
+});
+
 router.get('/skills', (req,res,next)=>{
 	res.header("Access-Control-Allow-Origin","*");
     var pagenum = parseInt(req.headers.pagenumber);
@@ -146,5 +162,19 @@ router.get('/skills', (req,res,next)=>{
     });
 });
 
+router.get('/skill/getAll', (req,res,next)=>{
+	res.header("Access-Control-Allow-Origin","*");
+	 var request = new sql.Request();
+		
+		
+		request.query("select * from skills",function(err, skill){
+        if(err){
+            res.status(500).send("Error occured");
+        }
+        else{
+            res.status(201).json(skill.recordset);
+        }
+    });
+});
 
 module.exports=router;
